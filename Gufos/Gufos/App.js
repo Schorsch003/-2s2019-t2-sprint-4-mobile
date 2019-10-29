@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 const App = () => {
     let teste = '';
-    const img = 'https://cdn.betterttv.net/emote/5ba53bab8a8548129c5e1325/3x' 
+    const img = 'https://cdn.betterttv.net/emote/5ba53bab8a8548129c5e1325/3x'; 
      return (
     <Fragment>
       <StatusBar barStyle="dark-content" />

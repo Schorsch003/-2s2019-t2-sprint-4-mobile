@@ -48,7 +48,6 @@ const isLoginValid = async () => {
     let jwtDecode = require('jwt-decode')
     let token = await AsyncStorage.getItem('@gufos:token');
     let decoded = jwtDecode(token);
-    console.warn(decoded)
     if (decoded !== null && decoded.exp * 1000 <= Date.now()) {
         return true
     } else {
@@ -61,7 +60,7 @@ export default createAppContainer(
     createSwitchNavigator({
         MainNavigator, AuthStack
     }, {
-        initialRouteName: (AsyncStorage.getItem('@gufos:token') !== null && isLoginValid ) ? 'MainNavigator' : 'AuthStack',
+        initialRouteName: (AsyncStorage.getItem('@gufos:token') !== null && isLoginValid() ) ? 'MainNavigator' : 'AuthStack',
         // initialRouteName: 'AuthStack'
     })
 );

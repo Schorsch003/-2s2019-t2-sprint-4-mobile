@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 
 
@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         paddingHorizontal: 5,
         paddingVertical: 1,
+    },
+    imgs: {
+        height: 40,
+        width: 40
     }
 })
 
@@ -25,6 +29,12 @@ export default class Main extends Component {
             eventos: [],
 
         }
+    }
+
+    static navigationOptions = {
+        tabBarIcon: () => (
+                <Image source={require('./../assets/img/calendar.png')} style={styles.imgs} />
+        )
     }
 
     componentDidMount() {

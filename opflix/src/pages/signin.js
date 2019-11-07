@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
 
 export default class SignIn extends Component {
 
+    static navigationOptions = {
+        header:null
+    }
+
 
     constructor() {
         super();
@@ -47,7 +51,7 @@ export default class SignIn extends Component {
     }
 
     _irParaCadastro = () => {
-        this.props.navigation.navigate('SignUp')
+        this.props.navigation.navigate('Cadastro')
     }
 
 

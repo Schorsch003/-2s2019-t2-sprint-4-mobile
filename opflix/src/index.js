@@ -4,6 +4,8 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import SignIn from './pages/signin'
 import SignUp from './pages/signup'
+import Main from './pages/main'
+import User from './pages/user'
 
 const Auth = createStackNavigator({
     SignIn: {
@@ -14,15 +16,22 @@ const Auth = createStackNavigator({
     }
 })
 
-// const Navigator = createBottomTabNavigator({
-//     Main: {
-
-//     },
-//     User: {
-
-//     }
-// })
+const Navigator = createBottomTabNavigator({
+    Main: {
+        screen: Main
+    },
+    User: {
+        screen: User
+    }
+})
 
 export default createAppContainer(
-    Auth
+    createSwitchNavigator(
+        {
+            Auth, Navigator
+        }, {
+        initialRouteName: 'Auth'
+    }
+    )
+
 );

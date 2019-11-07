@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Image, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, Image, StyleSheet, TextInput, TouchableOpacity, Text, AsyncStorage } from 'react-native';
 
 const styles = StyleSheet.create({
     logo: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 export default class SignIn extends Component {
 
     static navigationOptions = {
-        header:null
+        header: null
     }
 
 
@@ -50,8 +50,38 @@ export default class SignIn extends Component {
         }
     }
 
+    _irParaHome = async (token) => {
+        if (token !== null) {
+            try {
+                await AsyncStorage.setItem('@opflix:token', token);
+                this.props.navigation.navigate('Main')
+            } catch (x) {
+                console.warn('não tá nulo, mas tá dando erro');
+            }
+        } else {
+            console.warn('tá nulo')
+        }
+    }
+
     _irParaCadastro = () => {
         this.props.navigation.navigate('Cadastro')
+    }
+
+    _realizarLogin = async () => {
+        await fetch('http://192.168.4.16:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                senha: this.state.senha
+            })
+        })
+            .then(x => x.json())
+            .then(x => this._irParaHome(x.token))
+            .catch(error => console.warn(error))
     }
 
 
@@ -60,11 +90,10 @@ export default class SignIn extends Component {
             <View >
                 <Image source={require('./../img/Logo.png')} style={styles.logo} />
                 <View style={styles.form}>
-
                     <TextInput style={styles.input} placeholder='Email' onChangeText={x => this.setState({ email: x })} />
                     <TextInput secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
                 </View>
-                <TouchableOpacity onPress={() => console.warn(this.state)}>
+                <TouchableOpacity onPress={this._realizarLogin}>
                     <Text style={styles.button}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this._irParaCadastro}>

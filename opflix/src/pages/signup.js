@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 2,
   }
+
 })
 
 export default class SignUp extends Component {
@@ -68,37 +69,36 @@ export default class SignUp extends Component {
     }
   }
 
-  _irParaHome = async (token) => {
-    if (token !== null) {
-      try {
-        await AsyncStorage.setItem('@opflix:token', token);
-        this.props.navigation.navigate('Main')
-      } catch (x) {
-        console.warn('não tá nulo, mas tá dando erro');
-      }
-    } else {
-      console.warn('tá nulo')
-    }
+  _irParaLogin = async () => {
+    this.props.navigation.navigate('SignIn')
   }
 
-
+  _tratarData = (data) => {
+    let val = data.split('-')
+    return val[2] + '-' + val[1] + '-' + val[0] + 'T:00:00:0000'
+  }
 
   _realizarCadastro = async () => {
-    await fetch('http://192.168.4.16:5000/api/login', {
+
+    let dataTratada = this._tratarData(this.state.dataNascimento)
+
+
+    await fetch('http://192.168.1.108:5000/api/cadastro', {
+      // await fetch('http://192.168.4.16:5000/api/cadastro', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        nome: this.state.nome,
         email: this.state.email,
         senha: this.state.senha,
-        nome: this.state.nome
+        dataNascimento: dataTratada
       })
     })
-      .then(x => x.json())
-      .then(x => this._irParaHome(x.token))
-      .catch(error => console.warn(error))
+      .then(() => _irParaLogin)
+      .catch(error => console.warn('erro'))
   }
 
 
@@ -112,22 +112,35 @@ export default class SignUp extends Component {
           <TextInput secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
           <DatePicker
             mode="date" //The enum of date, datetime and time
-            placeholder="Data de Nascimento"
-            format="YYYY-MM-DDTHH:mm:SS"
+            placeholder={this.state.dataNascimento}
+            format="DD-MM-YYYY"
             maxDate="01-01-2019"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             style={styles.date}
             onDateChange={(date) => { this.setState({ dataNascimento: date }) }}
             customStyles={{
-              dateInput: { borderColor: "blue", borderWidth: 1 },
-              dateTouchBody: { borderColor: "red", borderWidth: 3 },
+              dateInput: {
+                borderWidth: 0,
+                textAlign: 'center',
+                borderBottomColor: '#707070',
+              },
+
+              placeholderText: {
+                color: 'rgba(0,0,0,0.26)',
+                fontSize: 20,
+              },
+              dateIcon: {
+                height: 0,
+                width: 0
+              },
+
 
             }}
           />
         </View>
-        <TouchableOpacity onPress={this._realizarLogin}>
-          <Text style={styles.button}>Login</Text>
+        <TouchableOpacity onPress={this._realizarCadastro}>
+          <Text style={styles.button}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
     );

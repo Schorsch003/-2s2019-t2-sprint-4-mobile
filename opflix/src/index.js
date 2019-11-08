@@ -14,6 +14,8 @@ const Auth = createStackNavigator({
     Cadastro: {
         screen: SignUp
     }
+}, {
+
 })
 
 const Navigator = createBottomTabNavigator({
@@ -23,14 +25,31 @@ const Navigator = createBottomTabNavigator({
     User: {
         screen: User
     }
-})
+}, {
+    tabBarOptions: {
+        activeBackgroundColor: '#FF5454',
+        inactiveBackgroundColor: '#FF0000',
+        activeTintColor: '#fff',
+        inactiveTintColor: '#ddd',
+        showLabel: false,
+        showIcon:true,
+        labelStyle: {
+            fontSize: 20,
+        },
+        style: {
+            width: '100%',
+            height: 60
+        }
+    },
+}
+)
 
 export default createAppContainer(
     createSwitchNavigator(
         {
             Auth, Navigator
         }, {
-        initialRouteName: 'Auth'
+        initialRouteName: 'Navigator'
     }
     )
 

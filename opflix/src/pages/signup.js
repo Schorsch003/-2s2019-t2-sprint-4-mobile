@@ -69,8 +69,8 @@ export default class SignUp extends Component {
     }
   }
 
-  _irParaLogin = async () => {
-    this.props.navigation.navigate('SignIn')
+  _irParaLogin = () => {
+    this.props.navigation.navigate('Login')
   }
 
   _tratarData = (data) => {
@@ -83,8 +83,8 @@ export default class SignUp extends Component {
     let dataTratada = this._tratarData(this.state.dataNascimento)
 
 
-    await fetch('http://192.168.1.108:5000/api/cadastro', {
-      // await fetch('http://192.168.4.16:5000/api/cadastro', {
+    // await fetch('http://192.168.1.108:5000/api/cadastro', {
+    await fetch('http://192.168.4.16:5000/api/cadastro', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -97,8 +97,7 @@ export default class SignUp extends Component {
         dataNascimento: dataTratada
       })
     })
-      .then(() => _irParaLogin)
-      .catch(error => console.warn('erro'))
+      .catch(error => console.log(error))
   }
 
 
@@ -139,7 +138,7 @@ export default class SignUp extends Component {
             }}
           />
         </View>
-        <TouchableOpacity onPress={this._realizarCadastro}>
+        <TouchableOpacity onPress={this._irParaLogin}>
           <Text style={styles.button}>Cadastrar</Text>
         </TouchableOpacity>
       </View>

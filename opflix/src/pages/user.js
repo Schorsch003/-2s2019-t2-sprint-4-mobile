@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Image, StyleSheet, Text } from 'react-native';
+import { View, Image, StyleSheet, Text, AsyncStorage } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
   }
 })
 
+
+
 // import { Container } from './styles';
 
 export default class pages extends Component {
@@ -38,17 +40,24 @@ export default class pages extends Component {
     super();
     this.state = {
       imagem: '',
-      nome: 'Nome do usuario',
-      email: 'Email',
-      dataNascimento: '2019-01-01T00:00:0000'
+      nome: '',
+      email: '',
+      dataNascimento: ''
     }
+  }
+
+  _salvarDadosUsuario = async () => {
+    let jwtDecode = require('jwt-decode');
+    let token = await AsyncStorage.getItem('@opflix:token')
+    let values = jwtDecode(token);
+    console.warn(values)
+    this.setState({ nome: values.Username, email: values.email, dataNascimento: values.DataNascimento, imagem: values.Imagem })
   }
 
 
   _tratarData = (data) => {
-    let novaData = data.split('T')
-    let isso = novaData[0].split('-');
-    return isso[2] + '-' + isso[1] + '-' + isso[0]
+    let novaData = data.split(' ')
+    return novaData[0]
   }
 
   static navigationOptions = {
@@ -57,13 +66,17 @@ export default class pages extends Component {
     )
   }
 
+  componentDidMount() {
+    this._salvarDadosUsuario();
+  }
+
   render() {
     return (
       <View>
         <TouchableOpacity style={{ width: '95%', marginTop: 15 }} onPress={() => console.log('atualizar')}>
           <Image source={require('./../img/edit_24px.png')} style={{ alignSelf: 'flex-end' }} />
         </TouchableOpacity>
-        <Image source={this.state.imagem} style={styles.profilePic} />
+        <Image source={{ uri: this.state.imagem }} style={styles.profilePic} />
         <View style={{ marginTop: 15 }}>
           <Text style={styles.texto}>{this.state.nome}</Text>
           <Text style={styles.texto}>{this.state.email}</Text>

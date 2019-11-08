@@ -68,8 +68,8 @@ export default class SignIn extends Component {
     }
 
     _realizarLogin = async () => {
-        // await fetch('http://192.168.4.16:5000/api/login', {
-            await fetch('http://192.168.1.108:5000/api/login', {
+        await fetch('http://192.168.4.16:5000/api/login', {
+            // await fetch('http://192.168.1.108:5000/api/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

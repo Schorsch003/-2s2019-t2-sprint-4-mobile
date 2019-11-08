@@ -8,14 +8,12 @@ import Main from './pages/main'
 import User from './pages/user'
 
 const Auth = createStackNavigator({
-    SignIn: {
+    Login: {
         screen: SignIn
     },
     Cadastro: {
         screen: SignUp
     }
-}, {
-
 })
 
 const Navigator = createBottomTabNavigator({
@@ -32,7 +30,7 @@ const Navigator = createBottomTabNavigator({
         activeTintColor: '#fff',
         inactiveTintColor: '#ddd',
         showLabel: false,
-        showIcon:true,
+        showIcon: true,
         labelStyle: {
             fontSize: 20,
         },

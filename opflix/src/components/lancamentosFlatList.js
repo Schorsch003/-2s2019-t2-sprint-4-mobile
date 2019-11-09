@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, StyleSheet, Text, FlatList, TouchableOpacity,Image } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 
 // import { Container } from './styles';
 
@@ -23,7 +23,21 @@ const styles = StyleSheet.create({
     }
 })
 
+
+
+
 export default class components extends Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+
+    _irParaSelected = (id) => {
+        this.props.navigation.navigate('selectedTitle', { idLancamento: id })
+    }
+
     render() {
         return (
             <View>
@@ -33,7 +47,8 @@ export default class components extends Component {
                     style={styles.lista}
                     horizontal={true}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => console.warn(item.titulo)}>
+                        // <TouchableOpacity onPress={() => console.warn(item.titulo)}>
+                        <TouchableOpacity onPress={() => this._irParaSelected(1)} >
                             <Image source={{ uri: item.imagem }} style={styles.img} />
                         </TouchableOpacity>
                     )

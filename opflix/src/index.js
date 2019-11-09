@@ -6,6 +6,7 @@ import SignIn from './pages/signin'
 import SignUp from './pages/signup'
 import Main from './pages/main'
 import User from './pages/user'
+import Selected from './pages/lancamentoSelecionado'
 
 const Auth = createStackNavigator({
     Login: {
@@ -42,10 +43,16 @@ const Navigator = createBottomTabNavigator({
 }
 )
 
+const SelectedStack = createStackNavigator({
+    Selected: {
+        screen: Selected
+    }
+})
+
 export default createAppContainer(
     createSwitchNavigator(
         {
-            Auth, Navigator
+            Auth, Navigator, SelectedStack
         }, {
         initialRouteName: 'Navigator'
     }

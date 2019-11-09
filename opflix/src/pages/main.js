@@ -10,50 +10,77 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50
   },
+  img: {
+    height: 200,
+    width: 100,
+    marginHorizontal: 20
+  },
+  lista: {
+    marginVertical: 15,
+  },
+  title: {
+    fontSize: 17,
+    borderBottomColor: '#707070',
+    borderBottomWidth: 1,
+    marginBottom: 15,
+    width: '60%',
+    marginLeft: 10,
+  }
 })
+
+
+
+
 
 mocked = [
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    titulo: 'It: a coisínea',
+    dataLancamento: '2019-01-01T00:00:0000',
+    idGenero: 1,
+    idGeneroNavigation: {
+      idGenero: 1,
+      nome: 'Terror'
+    },
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
   {
-    img: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
+    imagem: 'https://www.ahnegao.com.br/wp-content/uploads/2017/10/img-1-3.jpg'
   },
 ]
 
@@ -71,6 +98,11 @@ export default class pages extends Component {
   }
 
 
+  _irParaSelected = (id) => {
+    this.props.navigation.navigate('SelectedStack', { idLancamento: id })
+  }
+
+
   _recuperarLancamentosRecentes = async () => {
     await fetch('http://192.168.4.16:5000/api/lancamentos/recentes', {
       headers: {
@@ -80,7 +112,7 @@ export default class pages extends Component {
     })
       .then(x => x.json())
       .then(x => this.setState({ listaRecentes: x }))
-      .catch(error => console.warn(error))
+    // .catch(error => console.warn(error))
   }
 
 
@@ -88,14 +120,14 @@ export default class pages extends Component {
     await fetch('http://192.168.4.16:5000/api/lancamentos/genero/1')
       .then(x => x.json())
       .then(x => this.setState({ listaAcao: x }))
-      .catch(error => console.warn(error))
+    // .catch(error => console.warn(error))
   }
 
   _recuperarCategorias = async () => {
     await fetch('http://192.168.4.16:5000/api/categorias')
       .then(x => x.json())
       .then(x => this.setState({ listaGeneros: x }))
-      .catch(error => console.warn(error))
+    // .catch(error => console.warn(error))
   }
 
 
@@ -112,14 +144,38 @@ export default class pages extends Component {
       <Image source={require('./../img/list_icon.png')} style={styles.imgs} />
     )
   }
+
   render() {
     return (
       <View>
         <ScrollView>
-          <Lista titulo='Mais recentes' data={this.state.listaRecentes} />
-          <Lista titulo='Ação' data={this.state.listaAcao} />
-
-
+          {/* <Lista titulo='Mais recentes' data={this.state.listaRecentes} /> */}
+          {/* <Lista titulo='Mais recentes' data={mocked} /> */}
+          <Text style={styles.title}>Mais recentes</Text>
+          <FlatList
+            data={mocked}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              // <TouchableOpacity onPress={() => console.warn(item.titulo)}>
+              <TouchableOpacity onPress={() => this._irParaSelected(item.idLancamento)} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
+          {/* <Lista titulo='Ação' data={this.state.listaAcao} /> */}
+          <Text style={styles.title}>Ação</Text>
+          <FlatList
+            data={this.state.listaAcao}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              // <TouchableOpacity onPress={() => console.warn(item.titulo)}>
+              <TouchableOpacity onPress={() => this._irParaSelected(1)} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
         </ScrollView>
       </View>
     );

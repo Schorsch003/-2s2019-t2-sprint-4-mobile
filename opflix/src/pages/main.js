@@ -92,14 +92,12 @@ export default class pages extends Component {
     this.state = {
       listaRecentes: [],
       listaGeneros: [],
-      listaAcao: []
+      listaAcao: [],
+      listaTerror: [],
+      listaFiccao: [],
+      listaAventura: []
 
     }
-  }
-
-
-  _irParaSelected = (id) => {
-    this.props.navigation.navigate('SelectedStack', { idLancamento: id })
   }
 
 
@@ -123,6 +121,33 @@ export default class pages extends Component {
     // .catch(error => console.warn(error))
   }
 
+  _recuperarLancamentosTerror = async () => {
+    await fetch('http://192.168.4.16:5000/api/lancamentos/genero/3')
+      .then(x => x.json())
+      .then(x => this.setState({ listaTerror: x }))
+    // .catch(error => console.warn(error))
+  }
+
+  _recuperarLancamentosFiccao = async () => {
+    await fetch('http://192.168.4.16:5000/api/lancamentos/genero/4')
+      .then(x => x.json())
+      .then(x => this.setState({ listaFiccao: x }))
+    // .catch(error => console.warn(error))
+  }
+
+  _recuperarLancamentosAnimacao = async () => {
+    await fetch('http://192.168.4.16:5000/api/lancamentos/genero/5')
+      .then(x => x.json())
+      .then(x => this.setState({ listaAnimacao: x }))
+    // .catch(error => console.warn(error))
+  }
+  _recuperarLancamentosAventura = async () => {
+    await fetch('http://192.168.4.16:5000/api/lancamentos/genero/6')
+      .then(x => x.json())
+      .then(x => this.setState({ listaAventura: x }))
+    // .catch(error => console.warn(error))
+  }
+
   _recuperarCategorias = async () => {
     await fetch('http://192.168.4.16:5000/api/categorias')
       .then(x => x.json())
@@ -136,7 +161,11 @@ export default class pages extends Component {
   componentDidMount() {
     this._recuperarLancamentosRecentes();
     this._recuperarCategorias();
-    this._recuperarLancamentosAcao()
+    this._recuperarLancamentosAcao();
+    this._recuperarLancamentosTerror();
+    this._recuperarLancamentosFiccao();
+    this._recuperarLancamentosAnimacao();
+    this._recuperarLancamentosAventura();
   }
 
   static navigationOptions = {
@@ -149,29 +178,68 @@ export default class pages extends Component {
     return (
       <View>
         <ScrollView>
-          {/* <Lista titulo='Mais recentes' data={this.state.listaRecentes} /> */}
-          {/* <Lista titulo='Mais recentes' data={mocked} /> */}
           <Text style={styles.title}>Mais recentes</Text>
           <FlatList
-            data={mocked}
+            data={this.state.listaRecentes}
             style={styles.lista}
             horizontal={true}
             renderItem={({ item }) => (
-              // <TouchableOpacity onPress={() => console.warn(item.titulo)}>
-              <TouchableOpacity onPress={() => this._irParaSelected(item.idLancamento)} >
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                 <Image source={{ uri: item.imagem }} style={styles.img} />
               </TouchableOpacity>
             )
             } />
-          {/* <Lista titulo='Ação' data={this.state.listaAcao} /> */}
           <Text style={styles.title}>Ação</Text>
           <FlatList
             data={this.state.listaAcao}
             style={styles.lista}
             horizontal={true}
             renderItem={({ item }) => (
-              // <TouchableOpacity onPress={() => console.warn(item.titulo)}>
-              <TouchableOpacity onPress={() => this._irParaSelected(1)} >
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
+          <Text style={styles.title}>Terror</Text>
+          <FlatList
+            data={this.state.listaTerror}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
+          <Text style={styles.title}>Ficção Científica</Text>
+          <FlatList
+            data={this.state.listaFiccao}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
+          <Text style={styles.title}>Animação</Text>
+          <FlatList
+            data={this.state.listaAnimacao}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                <Image source={{ uri: item.imagem }} style={styles.img} />
+              </TouchableOpacity>
+            )
+            } />
+          <Text style={styles.title}>Aventura</Text>
+          <FlatList
+            data={this.state.listaAventura}
+            style={styles.lista}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                 <Image source={{ uri: item.imagem }} style={styles.img} />
               </TouchableOpacity>
             )

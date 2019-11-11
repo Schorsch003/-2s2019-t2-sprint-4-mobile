@@ -75,13 +75,10 @@ export default class SignUp extends Component {
 
   _tratarData = (data) => {
     let val = data.split('-')
-    return val[2] + '-' + val[1] + '-' + val[0] + 'T:00:00:0000'
+    return val[2] + '-' + val[1] + '-' + val[0] + 'T:00:00:00'
   }
 
   _realizarCadastro = async () => {
-
-    let dataTratada = this._tratarData(this.state.dataNascimento)
-
 
     // await fetch('http://192.168.1.108:5000/api/cadastro', {
     await fetch('http://192.168.4.16:5000/api/cadastro', {
@@ -94,10 +91,11 @@ export default class SignUp extends Component {
         nome: this.state.nome,
         email: this.state.email,
         senha: this.state.senha,
-        dataNascimento: dataTratada
+        dataNascimento: this._tratarData(this.state.dataNascimento)
       })
     })
-      .catch(error => console.log(error))
+      .then(() => this._irParaLogin)
+      .catch(error => console.warn(error))
   }
 
 
@@ -112,7 +110,7 @@ export default class SignUp extends Component {
           <DatePicker
             mode="date" //The enum of date, datetime and time
             placeholder={this.state.dataNascimento}
-            format="DD-MM-YYYY"
+            format="YYYY-MM-DDTHH:mm:ss"
             maxDate="01-01-2019"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
@@ -138,7 +136,7 @@ export default class SignUp extends Component {
             }}
           />
         </View>
-        <TouchableOpacity onPress={this._irParaLogin}>
+        <TouchableOpacity onPress={() => this._realizarCadastro}>
           <Text style={styles.button}>Cadastrar</Text>
         </TouchableOpacity>
       </View>

@@ -8,6 +8,9 @@ import Main from './pages/main'
 import User from './pages/user'
 import Selected from './pages/lancamentoSelecionado'
 
+import React from 'react'
+import { Image } from 'react-native'
+
 const Auth = createStackNavigator({
     Login: {
         screen: SignIn
@@ -17,9 +20,36 @@ const Auth = createStackNavigator({
     }
 })
 
+const MainStack = createStackNavigator({
+    Main: {
+        screen: Main,
+        navigationOptions: {
+            header: null,
+        }
+    }
+})
+
+
+const SelectedStack = createStackNavigator(
+    {
+        Selected: {
+            screen: Selected,
+            navigationOptions: {
+                header: null
+            }
+        }
+    }
+)
+
+
 const Navigator = createBottomTabNavigator({
     Main: {
-        screen: Main
+        screen: MainStack,
+        navigationOptions: {
+            tabBarIcon: () => (
+                <Image source={require('./img/list_icon.png')} style={{ height: 50, width: 50 }} />
+            )
+        }
     },
     User: {
         screen: User
@@ -43,16 +73,10 @@ const Navigator = createBottomTabNavigator({
 }
 )
 
-const SelectedStack = createStackNavigator({
-    Selected: {
-        screen: Selected
-    }
-})
-
 export default createAppContainer(
     createSwitchNavigator(
         {
-            Auth, Navigator, SelectedStack
+            Auth, Navigator, SelectedStack, MainStack
         }, {
         initialRouteName: 'Navigator'
     }

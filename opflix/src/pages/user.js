@@ -72,7 +72,7 @@ export default class pages extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex:1,backgroundColor:'#fff'}}>
         <TouchableOpacity style={{ width: '95%', marginTop: 15 }} onPress={() => console.log('atualizar')}>
           <Image source={require('./../img/edit_24px.png')} style={{ alignSelf: 'flex-end' }} />
         </TouchableOpacity>

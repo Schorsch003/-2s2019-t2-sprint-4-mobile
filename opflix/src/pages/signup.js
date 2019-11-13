@@ -73,14 +73,14 @@ export default class SignUp extends Component {
     this.props.navigation.navigate('Login')
   }
 
-  _tratarData = (data) => {
-    let val = data.split('-')
-    return val[2] + '-' + val[1] + '-' + val[0] + 'T:00:00:00'
-  }
+  // _tratarData = (data) => {
+  //   let vals = data.split('T')
+  //   let val = vals.split('-')
+  //   return val[2] + '/' + val[1] + '/' + val[0];
+  // }
 
   _realizarCadastro = async () => {
-
-    // await fetch('http://192.168.1.108:5000/api/cadastro', {
+    console.warn('CADASTRA PELO AMOR DE JDADSA')
     await fetch('http://192.168.4.16:5000/api/cadastro', {
       method: 'POST',
       headers: {
@@ -91,11 +91,14 @@ export default class SignUp extends Component {
         nome: this.state.nome,
         email: this.state.email,
         senha: this.state.senha,
-        dataNascimento: this._tratarData(this.state.dataNascimento)
+        dataNascimento: this.state.dataNascimento
       })
     })
-      .then(() => this._irParaLogin)
+      .then(res => res.json())
+      .then(data => this._irParaLogin)
+      // .then(x => console.warn(x))
       .catch(error => console.warn(error))
+    console.warn('buidebafaw')
   }
 
 
@@ -136,7 +139,7 @@ export default class SignUp extends Component {
             }}
           />
         </View>
-        <TouchableOpacity onPress={() => this._realizarCadastro}>
+        <TouchableOpacity onPress={() => this._realizarCadastro()}>
           <Text style={styles.button}>Cadastrar</Text>
         </TouchableOpacity>
       </View>

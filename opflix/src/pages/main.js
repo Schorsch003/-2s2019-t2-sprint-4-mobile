@@ -205,61 +205,67 @@ export default class pages extends Component {
                   data={this.state.listaRecentes}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.title}>Ação</Text>
+                <Text style={styles.titleLight}>Ação</Text>
                 <FlatList
                   data={this.state.listaAcao}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.title}>Terror</Text>
+                <Text style={styles.titleLight}>Terror</Text>
                 <FlatList
                   data={this.state.listaTerror}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.title}>Ficção Científica</Text>
+                <Text style={styles.titleLight}>Ficção Científica</Text>
                 <FlatList
                   data={this.state.listaFiccao}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.title}>Animação</Text>
+                <Text style={styles.titleLight}>Animação</Text>
                 <FlatList
                   data={this.state.listaAnimacao}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.title}>Aventura</Text>
+                <Text style={styles.titleLight}>Aventura</Text>
                 <FlatList
                   data={this.state.listaAventura}
                   style={styles.lista}
                   horizontal={true}
+                  keyExtractor={x => x.titulo}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
                       <Image source={{ uri: item.imagem }} style={styles.img} />

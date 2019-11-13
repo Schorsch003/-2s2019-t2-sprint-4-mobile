@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     width: '75%',
     alignSelf: 'center',
     fontSize: 20,
+    textAlign: 'center'
   }
 })
 
@@ -39,18 +40,20 @@ export default class pages extends Component {
   constructor() {
     super();
     this.state = {
-      imagem: '',
+      imagem: null,
       nome: '',
       email: '',
       dataNascimento: ''
     }
   }
 
+
+
+
   _salvarDadosUsuario = async () => {
     let jwtDecode = require('jwt-decode');
     let token = await AsyncStorage.getItem('@opflix:token')
     let values = jwtDecode(token);
-    console.warn(values)
     this.setState({ nome: values.Username, email: values.email, dataNascimento: values.DataNascimento, imagem: values.Imagem })
   }
 
@@ -63,7 +66,9 @@ export default class pages extends Component {
   static navigationOptions = {
     tabBarIcon: () => (
       <Image source={require('./../img/user_icon.png')} style={styles.imgs} />
-    )
+    ),
+    header: null
+
   }
 
   componentDidMount() {
@@ -72,8 +77,8 @@ export default class pages extends Component {
 
   render() {
     return (
-      <View style={{flex:1,backgroundColor:'#fff'}}>
-        <TouchableOpacity style={{ width: '95%', marginTop: 15 }} onPress={() => console.log('atualizar')}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <TouchableOpacity style={{ width: '95%', marginTop: 10 }} onPress={() => console.warn('teste')}>
           <Image source={require('./../img/edit_24px.png')} style={{ alignSelf: 'flex-end' }} />
         </TouchableOpacity>
         <Image source={{ uri: this.state.imagem }} style={styles.profilePic} />

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#bbb',
     alignSelf: 'center',
     marginTop: 20
   },
@@ -80,7 +80,7 @@ export default class pages extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
         <TouchableOpacity onPress={() => console.warn('teste')}>
-          <Image source={require('./../img/edit_24px.png')} style={{ alignSelf: 'flex-end', tintColor: '#ccc', width: '95%', marginTop: 10 }} />
+          <Image source={require('./../img/edit_24px.png')} style={{ alignSelf: 'flex-end', tintColor: '#ccc',marginTop: 10,marginRight:10}} />
         </TouchableOpacity>
         <Image source={{ uri: this.state.imagem }} style={styles.profilePic} />
         <View style={{ marginTop: 15 }}>

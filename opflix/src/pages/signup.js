@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: 'rgba(0,0,0,0.26)',
     fontSize: 20,
-    marginVertical: 2,
-
+    marginVertical: 10,
+    color: '#ccc'
   },
   form: {
     marginTop: 50
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderBottomColor: '#707070',
     borderBottomWidth: 1,
-    color: 'rgba(0,0,0,0.26)',
+    color: '#cccccc',
     fontSize: 20,
     marginVertical: 2,
-  }
 
+  }
 })
 
 export default class SignUp extends Component {
@@ -104,12 +104,12 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <View >
+      <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
         <Image source={require('./../img/Logo.png')} style={styles.logo} />
         <View style={styles.form}>
-          <TextInput style={styles.input} placeholder='Nome' onChangeText={x => this.setState({ nome: x })} />
-          <TextInput style={styles.input} placeholder='Email' onChangeText={x => this.setState({ email: x })} />
-          <TextInput secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
+          <TextInput placeholderTextColor='#cccccc' style={styles.input} placeholder='Nome' onChangeText={x => this.setState({ nome: x })} />
+          <TextInput placeholderTextColor='#cccccc' style={styles.input} placeholder='Email' onChangeText={x => this.setState({ email: x })} />
+          <TextInput placeholderTextColor='#cccccc' secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
           <DatePicker
             mode="date" //The enum of date, datetime and time
             placeholder={this.state.dataNascimento}
@@ -127,7 +127,7 @@ export default class SignUp extends Component {
               },
 
               placeholderText: {
-                color: 'rgba(0,0,0,0.26)',
+                color: '#cccccc',
                 fontSize: 20,
               },
               dateIcon: {

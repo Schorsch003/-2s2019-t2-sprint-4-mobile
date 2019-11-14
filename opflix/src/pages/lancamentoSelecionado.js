@@ -71,7 +71,6 @@ export default class lancamentos extends Component {
         const { navigation } = this.props;
         const a = navigation.getParam('id', null);
         this._recuperarLancamentoPorId(a)
-
     }
 
 
@@ -83,7 +82,7 @@ export default class lancamentos extends Component {
         if (this.state.backgroundColor !== '#FF0000') {
             this.setState({ backgroundColor: '#FF0000' })
         } else {
-            this.setState({ backgroundColor: '#000000' })
+            this.setState({ backgroundColor: '#CCCCCC' })
         }
     }
 
@@ -98,23 +97,24 @@ export default class lancamentos extends Component {
 
         return (
 
-            <View style={{ height: '100%' }}>
+
+            <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
 
                 <View style={{ height: '35%' }}>
-                    <Image source={{ uri: this.state.imagem }} style={{ height: '100%', width: '100%', position: 'absolute' }} />
+                    <Image source={{ uri: this.state.imagem }} style={{ height: '100%', width: '100%', position: 'absolute'}} />
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Main')}>
                         <Image source={require('./../img/back_arrow.png')} style={{
                             position: 'relative',
                             top: 15,
                             left: 15,
                             borderWidth: 1,
-                            borderColor: '#fff',
                             borderRadius: 40,
+                            tintColor: '#ccc'
                         }} />
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 15, width:'70%' }}>{this.state.titulo}</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', marginLeft: 15, width: '70%', color: '#ccc' }}>{this.state.titulo}</Text>
                     <TouchableOpacity onPress={() => this._favoritar()}>
                         <Image source={require('./../img/heart.png')} style={{
                             height: 50,
@@ -126,20 +126,20 @@ export default class lancamentos extends Component {
                 </View>
                 <View>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10 }}>Lançamento: </Text>
-                        <Text>{this._tratarData(this.state.dataLancamento)}</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Lançamento: </Text>
+                        <Text style={{ color: '#ccc' }}>{this.state.dataLancamento}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10 }}>Gênero: </Text>
-                        <Text>{this.state.categoria}</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Gênero: </Text>
+                        <Text style={{ color: '#ccc' }}>{this.state.categoria}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10 }}>Duracao: </Text>
-                        <Text>{this.state.tempoDuracao} {(this.state.tipo === 'Filme') ? 'min' : 'eps'}</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Duracao: </Text>
+                        <Text style={{ color: '#ccc' }}>{this.state.tempoDuracao} {(this.state.tipo === 'Filme') ? 'min' : 'eps'}</Text>
                     </View>
                     <View >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>Sinopse</Text>
-                        <Text style={{ fontSize: 18, marginLeft: 15, marginRight: 15 }}>{this.state.sinopse}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Sinopse</Text>
+                        <Text style={{ fontSize: 18, marginLeft: 15, marginRight: 15, color: '#ccc' }}>{this.state.sinopse}</Text>
                     </View >
                 </View>
             </View >

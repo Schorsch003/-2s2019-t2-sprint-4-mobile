@@ -8,7 +8,6 @@ import SignUp from './pages/signup'
 import Main from './pages/main'
 import User from './pages/user'
 import Selected from './pages/lancamentoSelecionado'
-import AttUser from './pages/atualizarUsuario'
 
 import React from 'react'
 import { Image, AsyncStorage } from 'react-native'
@@ -67,7 +66,7 @@ const Navigator = createBottomTabNavigator({
         screen: MainStack,
         navigationOptions: {
             tabBarIcon: () => (
-                <Image source={require('./img/list_icon.png')} style={{ height: 50, width: 50 }} />
+                <Image source={require('./img/list_icon.png')} style={{ height: 50, width: 50, tintColor: '#999' }} />
             )
         }
     },
@@ -75,16 +74,14 @@ const Navigator = createBottomTabNavigator({
         screen: UserStack,
         navigationOptions: {
             tabBarIcon: () => (
-                <Image source={require('./img/user_icon.png')} style={{ height: 50, width: 50 }} />
+                <Image source={require('./img/user_icon.png')} style={{ height: 50, width: 50, tintColor: '#999' }} />
             )
         }
     }
 }, {
     tabBarOptions: {
-        activeBackgroundColor: '#FF5454',
-        inactiveBackgroundColor: '#FF0000',
-        activeTintColor: '#fff',
-        inactiveTintColor: '#ddd',
+        activeBackgroundColor: '#444444',
+        inactiveBackgroundColor: '#000000',
         showLabel: false,
         showIcon: true,
         labelStyle: {
@@ -97,26 +94,14 @@ const Navigator = createBottomTabNavigator({
     },
 })
 
-const AttUserStack = createStackNavigator({
-    AttUser: { screen: AttUser }
-})
-
-// const Drawer = createDrawerNavigator({
-//     Home:{
-//         screen:MainStack
-//     },
-//     User:{
-//         screen:UserStack
-//     }
-// })
 
 export default createAppContainer(
     createSwitchNavigator(
         {
-            Auth, Navigator, SelectedStack, MainStack, UserStack, AttUserStack
+            Auth, Navigator, SelectedStack, MainStack, UserStack
         }, {
-        initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
-        // initialRouteName: 'Auth'
+        // initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
+        initialRouteName: 'Auth'
     }
     )
 

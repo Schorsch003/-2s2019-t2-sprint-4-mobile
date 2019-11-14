@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   lista: {
     marginVertical: 15,
   },
-  titleLight: {
-    color: '#000',
+  title: {
+    color: '#ccc',
     fontSize: 17,
     borderBottomColor: '#707070',
     borderBottomWidth: 1,
@@ -189,7 +189,7 @@ export default class pages extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex:1,backgroundColor: '#1a1a1a' }}>
         {(this.state.loading === 1) ?
           (<View style={{ height: '100%', justifyContent: 'center' }}>
             <ActivityIndicator size='large' style={{ alignSelf: 'center' }} />
@@ -200,8 +200,8 @@ export default class pages extends Component {
           (
             <View>
               <ScrollView>
-                <Text style={styles.titleLight}>Mais recentes</Text>
-                <FlatList
+                <Text style={styles.title}>Mais recentes</Text>
+                {/* <FlatList
                   data={this.state.listaRecentes}
                   style={styles.lista}
                   horizontal={true}
@@ -211,8 +211,19 @@ export default class pages extends Component {
                       <Image source={{ uri: item.imagem }} style={styles.img} />
                     </TouchableOpacity>
                   )
+                  } /> */}
+                <FlatList
+                  data={this.state.listaRecentes}
+                  style={mocked}
+                  horizontal={true}
+                  keyExtractor={x => x.titulo}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                      <Image source={{ uri: item.imagem }} style={styles.img} />
+                    </TouchableOpacity>
+                  )
                   } />
-                <Text style={styles.titleLight}>Ação</Text>
+                <Text style={styles.title}>Ação</Text>
                 <FlatList
                   data={this.state.listaAcao}
                   style={styles.lista}
@@ -224,7 +235,7 @@ export default class pages extends Component {
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.titleLight}>Terror</Text>
+                <Text style={styles.title}>Terror</Text>
                 <FlatList
                   data={this.state.listaTerror}
                   style={styles.lista}
@@ -236,7 +247,7 @@ export default class pages extends Component {
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.titleLight}>Ficção Científica</Text>
+                <Text style={styles.title}>Ficção Científica</Text>
                 <FlatList
                   data={this.state.listaFiccao}
                   style={styles.lista}
@@ -248,7 +259,7 @@ export default class pages extends Component {
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.titleLight}>Animação</Text>
+                <Text style={styles.title}>Animação</Text>
                 <FlatList
                   data={this.state.listaAnimacao}
                   style={styles.lista}
@@ -260,7 +271,7 @@ export default class pages extends Component {
                     </TouchableOpacity>
                   )
                   } />
-                <Text style={styles.titleLight}>Aventura</Text>
+                <Text style={styles.title}>Aventura</Text>
                 <FlatList
                   data={this.state.listaAventura}
                   style={styles.lista}

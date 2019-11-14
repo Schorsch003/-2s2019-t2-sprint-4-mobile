@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         color: 'rgba(0,0,0,0.26)',
         fontSize: 20,
-        marginVertical: 10
+        marginVertical: 10,
+        color: '#ccc'
     },
     form: {
         marginTop: 50
@@ -88,17 +89,17 @@ export default class SignIn extends Component {
 
     render() {
         return (
-            <View >
+            <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
                 <Image source={require('./../img/Logo.png')} style={styles.logo} />
                 <View style={styles.form}>
-                    <TextInput style={styles.input} placeholder='Email' onChangeText={x => this.setState({ email: x })} />
-                    <TextInput secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
+                    <TextInput placeholderTextColor='#cccccc' style={styles.input} placeholder='Email' onChangeText={x => this.setState({ email: x })} />
+                    <TextInput placeholderTextColor='#cccccc' secureTextEntry style={styles.input} placeholder='Senha' onChangeText={x => this.setState({ senha: x })} />
                 </View>
                 <TouchableOpacity onPress={this._realizarLogin}>
                     <Text style={styles.button}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this._irParaCadastro}>
-                    <Text >Não possui login? Cadastre-se!</Text>
+                    <Text style={{color:'#ddd', alignSelf:'center', marginTop:80}}>Não possui login? Cadastre-se!</Text>
                 </TouchableOpacity>
             </View>
         );

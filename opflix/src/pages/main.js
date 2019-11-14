@@ -189,8 +189,8 @@ export default class pages extends Component {
 
   render() {
     return (
-      <View style={{ flex:1,backgroundColor: '#1a1a1a' }}>
-        {(this.state.loading === 0) ?
+      <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
+        {(this.state.loading === 1) ?
           (<View style={{ height: '100%', justifyContent: 'center' }}>
             <ActivityIndicator size='large' style={{ alignSelf: 'center' }} />
           </View>

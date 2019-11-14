@@ -61,25 +61,31 @@ const UserStack = createStackNavigator({
     }
 })
 
+
+
 const Navigator = createBottomTabNavigator({
     Main: {
         screen: MainStack,
         navigationOptions: {
-            tabBarIcon: () => (
-                <Image source={require('./img/list_icon.png')} style={{ height: 50, width: 50, tintColor: '#999' }} />
+            tabBarIcon: ({ tintColor }) => (
+                <Image source={require('./img/list_icon.png')} style={{ height: 50, width: 50 }} tintColor={tintColor} />
             )
         }
     },
     User: {
         screen: UserStack,
         navigationOptions: {
-            tabBarIcon: () => (
-                <Image source={require('./img/user_icon.png')} style={{ height: 50, width: 50, tintColor: '#999' }} />
+            // tabBarIcon: ({tintColor}) => <Image source={require('./img/user_icon.png')} color={tintColor} />
+            tabBarIcon: ({ tintColor }) => (
+                <Image source={require('./img/user_icon.png')} style={{ height: 50, width: 50 }} tintColor={tintColor} />
+
             )
         }
     }
 }, {
     tabBarOptions: {
+        activeTintColor: '#ff0000',
+        inactiveTintColor: '#ddd',
         activeBackgroundColor: '#444444',
         inactiveBackgroundColor: '#000000',
         showLabel: false,
@@ -100,8 +106,8 @@ export default createAppContainer(
         {
             Auth, Navigator, SelectedStack, MainStack, UserStack
         }, {
-        // initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
-        initialRouteName: 'SelectedStack'
+        initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
+        // initialRouteName: 'SelectedStack'
     }
     )
 

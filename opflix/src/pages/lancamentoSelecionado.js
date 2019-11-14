@@ -48,7 +48,6 @@ export default class lancamentos extends Component {
         }
     }
 
-
     _recuperarLancamentoPorId = async (id) => {
         await fetch('http://192.168.4.16:5000/api/lancamentos/' + id)
             .then(x => x.json())
@@ -101,7 +100,7 @@ export default class lancamentos extends Component {
             <View style={{ flex: 1, backgroundColor: '#1a1a1a' }}>
 
                 <View style={{ height: '35%' }}>
-                    <Image source={{ uri: this.state.imagem }} style={{ height: '100%', width: '100%', position: 'absolute'}} />
+                    <Image source={{ uri: this.state.imagem }} style={{ height: '100%', width: '100%', position: 'absolute' }} />
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Main')}>
                         <Image source={require('./../img/back_arrow.png')} style={{
                             position: 'relative',

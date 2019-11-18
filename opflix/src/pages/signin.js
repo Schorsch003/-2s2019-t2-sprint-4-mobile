@@ -46,8 +46,8 @@ export default class SignIn extends Component {
     constructor() {
         super();
         this.state = {
-            email: '',
-            senha: ''
+            email: 'gabriel.schorsch@email.com',
+            senha: '123312'
         }
     }
 
@@ -99,7 +99,7 @@ export default class SignIn extends Component {
                     <Text style={styles.button}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this._irParaCadastro}>
-                    <Text style={{color:'#ddd', alignSelf:'center', marginTop:80}}>Não possui login? Cadastre-se!</Text>
+                    <Text style={{ color: '#ddd', alignSelf: 'center', marginTop: 80 }}>Não possui login? Cadastre-se!</Text>
                 </TouchableOpacity>
             </View>
         );

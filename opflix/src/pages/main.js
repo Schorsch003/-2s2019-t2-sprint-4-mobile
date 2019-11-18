@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Image, StyleSheet, ScrollView, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
-import Lista from './../components/lancamentosFlatList'
+import { View, Image, StyleSheet, ScrollView, Text, TouchableOpacity, FlatList, ActivityIndicator, AsyncStorage } from 'react-native';
 
 // import { Container } from './styles';
 
@@ -97,6 +96,7 @@ export default class pages extends Component {
       listaTerror: [],
       listaFiccao: [],
       listaAventura: [],
+      favoritos: [],
       loading: 0,
       timeout: 0
 
@@ -164,17 +164,28 @@ export default class pages extends Component {
   }
   _recuperarLancamentosAventura = async () => {
     await fetch('http://192.168.4.16:5000/api/lancamentos/genero/6')
-      .then(x => x.json())
-      .then(x => {
-        this.setState({ listaAventura: x })
-        this._loadingEnd()
-        setTimeout(this.setState({ timeout: 1 }), 5000)
-      }
 
-      )
+      .then(x => x.json())
+      .then(x => this.setState({ listaAventura: x }))
+      .then(this._recuperarFavoritos())
     // .then(this._loadingEnd())
 
     // .catch(error => console.warn(error))
+  }
+
+  _recuperarFavoritos = async () => {
+    let jwtDecode = require('jwt-decode');
+    let token = await AsyncStorage.getItem('@opflix:token')
+    let values = jwtDecode(token);
+    await fetch('http://192.168.4.16:5000/api/lancamentos/fav/' + values.jti)
+      .then(x => x.json())
+      .then(x => {
+        this.setState({ favoritos: x })
+        this._loadingEnd()
+        setTimeout(this.setState({ timeout: 1 }), 5000)
+      })
+
+
   }
 
   componentDidMount() {
@@ -274,6 +285,18 @@ export default class pages extends Component {
                 <Text style={styles.title}>Aventura</Text>
                 <FlatList
                   data={this.state.listaAventura}
+                  style={styles.lista}
+                  horizontal={true}
+                  keyExtractor={x => x.titulo}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('Selected', { "id": item.idLancamento }) }} >
+                      <Image source={{ uri: item.imagem }} style={styles.img} />
+                    </TouchableOpacity>
+                  )
+                  } />
+                <Text style={styles.title}>Favoritos</Text>
+                <FlatList
+                  data={this.state.favoritos}
                   style={styles.lista}
                   horizontal={true}
                   keyExtractor={x => x.titulo}

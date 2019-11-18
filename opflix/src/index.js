@@ -106,8 +106,9 @@ export default createAppContainer(
         {
             Auth, Navigator, SelectedStack, MainStack, UserStack
         }, {
-        initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
+        // initialRouteName: (_validarToken()) ? 'Navigator' : 'Auth'
         // initialRouteName: 'SelectedStack'
+        initialRouteName: 'Auth'
     }
     )
 

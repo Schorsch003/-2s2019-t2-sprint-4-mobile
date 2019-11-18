@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-
+import { View, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 // import { Container } from './styles';
 
 mocked = [
@@ -35,7 +33,7 @@ export default class lancamentos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 0,
+            idLancamento: null,
             backgroundColor: '',
             titulo: '',
             dataLancamento: '',
@@ -48,11 +46,19 @@ export default class lancamentos extends Component {
         }
     }
 
+    _recuperarInfoUser = async () => {
+        let jwtDecode = require('jwt-decode');
+        let token = await AsyncStorage.getItem('@opflix:token')
+        let values = jwtDecode(token);
+        this.setState({ idUser: values.jti })
+    }
+
     _recuperarLancamentoPorId = async (id) => {
         await fetch('http://192.168.4.16:5000/api/lancamentos/' + id)
             .then(x => x.json())
             .then(x => this.setState(
                 {
+                    idLancamento: id,
                     titulo: x.titulo,
                     dataLancamento: x.dataLancamento,
                     categoria: x.idCategoriaNavigation.nome,
@@ -74,11 +80,24 @@ export default class lancamentos extends Component {
 
 
     componentDidMount() {
+        this._recuperarInfoUser()
         this._sla()
     }
 
-    _favoritar = () => {
+    _favoritar = async () => {
         if (this.state.backgroundColor !== '#FF0000') {
+            console.warn(this.state)
+            await fetch('http://192.168.4.16:5000/api/usuarios/fav/' + this.state.idLancamento, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + await AsyncStorage.getItem('@opflix:token')
+                }
+            })
+                .then(x => x.json())
+                .then(x => console.warn(x))
+                .catch(x => console.warn(x))
             this.setState({ backgroundColor: '#FF0000' })
         } else {
             this.setState({ backgroundColor: '#CCCCCC' })
@@ -126,7 +145,7 @@ export default class lancamentos extends Component {
                 <View>
                     <View style={{ flexDirection: 'row', }}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Lançamento: </Text>
-                        <Text style={{ color: '#ccc' }}>{this.state.dataLancamento}</Text>
+                        <Text style={{ color: '#ccc' }}>{this._tratarData(this.state.dataLancamento)}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', }}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', marginLeft: 10, color: '#ccc' }}>Gênero: </Text>
